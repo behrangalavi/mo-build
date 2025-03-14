@@ -50,18 +50,18 @@ jobs:
 
       - name: Build image
         run: |
-          docker build -f ${{ vars.MO_DOCKERFILE }} ${{vars.MO_DOCKER_ARGS}} -t ${{ vars.MO_IMAGE_NAME }}:${{ VERSION }} -t ${{ vars.MO_IMAGE_NAME }}:latest ${{vars.MO_DOCKERCONTEXT}}
+          docker build -f ${{ vars.MO_DOCKERFILE }} ${{vars.MO_DOCKER_ARGS}} -t ${{ vars.MO_IMAGE_NAME }}:${{ env.VERSION }} -t ${{ vars.MO_IMAGE_NAME }}:latest ${{vars.MO_DOCKERCONTEXT}}
 
       - name: Push image
         run: |
-          docker push ${{ vars.MO_IMAGE_NAME }}:${{ VERSION }}
+          docker push ${{ vars.MO_IMAGE_NAME }}:${{ env.VERSION }}
           docker push ${{ vars.MO_IMAGE_NAME }}:latest
 
       - name: Release with mogenius
         uses: mogenius/mogenius-release-action@v1
         with:
           dev: true
-          image: "${{ vars.MO_IMAGE_NAME }}:${{ VERSION }}"
+          image: "${{ vars.MO_IMAGE_NAME }}:${{ env.VERSION }}"
           kind: ${{ vars.MO_KIND }}
           namespace: ${{ vars.MO_NAMESPACE_NAME }}
           resourceName: ${{ vars.MO_RESOURCE_NAME }}
