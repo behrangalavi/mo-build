@@ -38,7 +38,7 @@ jobs:
             echo "The latest tag $VERSION is not a semantic version. Ensure the tag follows semantic versioning (e.g., 1.0.0 or v1.0.0)."
             exit 1
           fi
-          echo "VERSION=$VERSION" >> $VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Determined version: $VERSION"
 
       - name: Login to Container Registry
